@@ -1,0 +1,50 @@
+#task 2 was to reindex document as follow:
+# 1. remove whitespace
+# 2. create new field with 2 other fields
+
+PUT task2/_doc/1
+{
+  "in": [
+    "amir 123",
+    " cpgf fdf ",
+    " dfdf fdf "
+    ],
+  "name": "amir",
+  "last": "haz"
+}
+GET task2/_search
+GET task2new/_search
+
+POST _reindex
+{
+  "source": {
+    "index": "task2"
+  }
+  , "dest": {
+    "index": "task2new",
+    "pipeline": "task2pipe"
+  }
+}
+
+PUT _ingest/pipeline/task2pipe
+{
+  "description": "task2",
+  "processors": [
+    {
+      "foreach": {
+        "field": "in",
+        "processor": {
+          "trim": {
+            "field": "_ingest._value"
+          }
+        }
+      }
+    },
+    {
+      "set": {
+        "field": "_source.fullname",
+        "value": "{{_source.name}}, {{_source.last}}"
+      }
+    }
+  ]
+}
