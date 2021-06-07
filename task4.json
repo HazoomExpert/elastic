@@ -1,0 +1,78 @@
+GET task4/_search
+{
+  "size": 50, 
+  "sort": [
+    {
+      "brand.keyword": {
+        "order": "asc"
+      }
+    },
+    {
+      "_score": {
+        "order": "desc"
+      }
+    }
+  ], 
+  "highlight": {
+    "pre_tags": ["<b>"],
+    "post_tags": ["</b>"],
+    "fields": {
+      "name": {}
+    }
+
+  }, 
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match_phrase": {
+            "man": "olive oil"
+            }
+        },
+        {
+          "match_phrase": {
+            "brand": "olive oil"
+            }
+        },
+        {
+          "match_phrase": {
+            "name": "olive oil"
+            }
+        }
+      ],
+      "minimum_should_match": 1
+    }
+  }
+}
+
+
+
+PUT task4/_doc/1
+{
+  "man": "olive oil",
+  "brand": "amir",
+  "name": "haz"
+}
+
+PUT task4/_doc/2
+{
+  "man": "as",
+  "brand": "olive oil",
+  "name": "haz"
+}
+
+
+PUT task4/_doc/3
+{
+  "man": "sss",
+  "brand": "amir",
+  "name": "olive oil"
+}
+
+
+PUT task4/_doc/4
+{
+  "man": "olive oil",
+  "brand": "olive oil",
+  "name": "olive oil"
+}
