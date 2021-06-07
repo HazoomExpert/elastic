@@ -1,3 +1,4 @@
+#find the phrase olive oil in any of these fields and highlight the name field with sort by score and name
 GET task4/_search
 {
   "size": 50, 
