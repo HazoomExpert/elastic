@@ -1,0 +1,81 @@
+GET movies-1/_search
+{
+  "query": {
+    "bool": {
+        "must": {
+          "bool": {
+            "should": [
+            {
+              "match": {
+                "title": "my"
+              }
+            },
+            {
+              "match": {
+                "title": "me"
+              }
+            }
+          ],
+          "minimum_should_match": 1
+          }
+        },
+        "should": [
+          {
+            "match": {
+              "tags": "romantic comedy"
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+
+PUT movies-1/_doc/4
+{
+  "minutes": 143,
+  "movie_id": "12345",
+  "title": "bla bla",
+  "tags": [
+    "new",
+    "supers",
+    "comedy"
+  ],
+  "revenue": 999,
+  "release_date": "2019-04025T03:33:33.OOOZ",
+  "budget": 233,
+  "avg_score": 3.4
+}
+
+PUT movies-1/_doc/5
+{
+  "minutes": 143,
+  "movie_id": "12345",
+  "title": "bl me",
+  "tags": [
+    "new",
+    "supers",
+    "comedy"
+  ],
+  "revenue": 999,
+  "release_date": "2019-04025T03:33:33.OOOZ",
+  "budget": 233,
+  "avg_score": 3.4
+}
+
+PUT movies-1/_doc/8
+{
+  "minutes": 143,
+  "movie_id": "12345",
+  "title": "my",
+  "tags": [
+    "new",
+    "supers",
+    "romantic comedy"
+  ],
+  "revenue": 999,
+  "release_date": "2019-04025T03:33:33.OOOZ",
+  "budget": 233,
+  "avg_score": 3.4
+}
