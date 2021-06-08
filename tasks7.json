@@ -1,0 +1,135 @@
+#task7 
+#write a single search on food index that returns the top 10 manufacturer's of foor items (in terms of the number of the items that the manufacturer oroduces) that have the phrase "corn " anywhere in the ingredients field
+
+GET food-ingredients/_search
+{
+  "size": 0,
+  "aggs": {
+    "state": {
+      "terms": {
+        "field": "manufacturer.keyword",
+        "size": 2,
+        "order": {
+          "_count": "desc"
+        }
+      }
+    }
+  },
+  "query": {
+    "match_phrase" : {
+      "ingredients" : "corn syrup"
+    }
+  }
+}
+
+
+
+PUT food-ingredients/_doc/1
+{
+  "weight": null,
+  "manufacturer": "amir",
+  "name": "kiss",
+  "ingredients": [
+    "milk",
+    "corn syrup"
+    ],
+  "categories": [
+    "food",
+    "gum"
+    ],
+    "brand": "hersheys"
+}
+PUT food-ingredients/_doc/2
+{
+  "weight": null,
+  "manufacturer": "amir",
+  "name": "lala",
+  "ingredients": [
+    "milk",
+    ""
+    ],
+  "categories": [
+    "food",
+    "gum"
+    ],
+    "brand": "hersheys"
+}
+
+PUT food-ingredients/_doc/3
+{
+  "weight": null,
+  "manufacturer": "liron",
+  "name": "ice cream",
+  "ingredients": [
+    "milk",
+    "corn syrup"
+    ],
+  "categories": [
+    "food",
+    "gum"
+    ],
+    "brand": "hersheys"
+}
+
+PUT food-ingredients/_doc/4
+{
+  "weight": null,
+  "manufacturer": "liron",
+  "name": "brad",
+  "ingredients": [
+    "milk",
+    ""
+    ],
+  "categories": [
+    "food",
+    "gum"
+    ],
+    "brand": "hersheys"
+}
+
+PUT food-ingredients/_doc/4
+{
+  "weight": null,
+  "manufacturer": "inbar",
+  "name": "coffe",
+  "ingredients": [
+    "milk",
+    ""
+    ],
+  "categories": [
+    "food",
+    "gum"
+    ],
+    "brand": "hersheys"
+}
+
+PUT food-ingredients/_doc/5
+{
+  "weight": null,
+  "manufacturer": "inbar",
+  "name": "coffe2",
+  "ingredients": [
+    "milk",
+    ""
+    ],
+  "categories": [
+    "food",
+    "gum"
+    ],
+    "brand": "hersheys"
+}
+PUT food-ingredients/_doc/6
+{
+  "weight": null,
+  "manufacturer": "inbar",
+  "name": "coffe3",
+  "ingredients": [
+    "milk",
+    ""
+    ],
+  "categories": [
+    "food",
+    "gum"
+    ],
+    "brand": "hersheys"
+}
