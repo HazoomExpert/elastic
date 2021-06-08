@@ -2,6 +2,8 @@
 #the title field is indexed as text 
 #the value of title is also indexed as text using the english analyzer, and this dield is named title.english
 #the value of title is also indexed as text using stop analyzer, and this field is named title.no_stop_words
+#all the other fields in task6 have the same names and data types as they were in movies1
+
 PUT movies-1/_doc/1
 {
   "minutes": 143,
