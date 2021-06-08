@@ -1,0 +1,52 @@
+#task 6
+#the title field is indexed as text 
+#the value of title is also indexed as text using the english analyzer, and this dield is named title.english
+#the value of title is also indexed as text using stop analyzer, and this field is named title.no_stop_words
+PUT movies-1/_doc/1
+{
+  "minutes": 143,
+  "movie_id": "12345",
+  "title": "bla bla",
+  "tags": [
+    "new",
+    "supers",
+    "comedy"
+  ],
+  "revenue": 999,
+  "release_date": "2019-04025T03:33:33.OOOZ",
+  "budget": 233,
+  "avg_score": 3.4
+}
+
+POST _reindex
+{
+  "source": {
+    "index": "movies-1"
+  }
+  , "dest": {
+    "index": "task6"
+  }
+}
+
+PUT _template/task6template
+{
+  "index_patterns": ["task6"],
+  "mappings": {
+    "properties": {
+      "title": {
+        "type": "text",
+        "analyzer": "standard",
+        "properties": {
+          "english": {
+            "type": "text",
+            "analyzer": "english"
+          },
+          "no_stop_word": {
+            "type": "text",
+            "analzyer": "stop"
+          }
+        }
+      }
+    }
+  }
+}
