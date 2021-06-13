@@ -1,24 +1,39 @@
 #task3 - need to search with match_phrase for oz and ounces and the hits should be the same
-
 PUT _template/task3template
 {
+  "mappings": {
+    "properties": {
+       "name": {
+         "type": "text",
+         "analyzer": "synonym"
+       }
+    }
+  }, 
   "index_patterns": ["task33"],
   "settings": {
     "index": {
       "analysis": {
+        "analyzer": {
+          "synonym": {
+            "tokenizer": "standard",
+            "filter": ["lowercase", "synonym"]
+          }
+        },
         "filter": {
+          "lowercase": {
+            "type": "lowercase"
+          },
           "synonym": {
             "type": "synonym",
-            "synonyms": ["oz, oz => ounces, ounces => oz"]
+            "lenient": true,
+            "synonyms": [ 
+              "oz, oz => ounces"]
           }
         }
       }
     }
   }
 }
-
-GET task33
-DELETE task33
 
 POST _reindex
 {
@@ -38,3 +53,10 @@ GET task33/_search
     }
   }
 }
+
+GET task33
+DELETE task33
+GET task3/_search
+
+
+
