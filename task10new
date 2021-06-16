@@ -1,0 +1,36 @@
+GET movies-1/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "bool": {
+          "should": [
+            {
+              "match": {
+                "tags": "romantic comedy"
+              }
+            }
+          ],
+          "filter": {
+            "bool": {
+              "should": [
+                {
+                  "match": {
+                    "title": "my"
+                  }
+                },
+                {
+                  "match": {
+                    "title": "me"
+                  }
+                }
+              ],
+              "minimum_should_match": 1
+
+            }
+          }
+        }
+      }
+    }
+  }
+}
